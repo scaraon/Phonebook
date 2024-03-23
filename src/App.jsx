@@ -1,8 +1,9 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import shortid from "shortid";
 import ContactForm from "./components/ContactForm/ContactForm";
 import ContactList from "./components/ContactList/ContactList";
 import Filter from "./components/Filter/Filter";
+import "./App.css"; // Подключаем файл со стилями
 
 export default class App extends Component {
   state = {
@@ -25,12 +26,12 @@ export default class App extends Component {
 
     const isExist = contacts.find(
       (contact) =>
-        contact.name.toUpperCase() == one.name.toUpperCase() &&
-        contact.number == one.number
+        contact.name.toUpperCase() === one.name.toUpperCase() &&
+        contact.number === one.number
     );
 
     if (isExist) {
-      alert(`This contact ${one.name.toUpperCase()}  already exists`);
+      alert(`This contact ${one.name.toUpperCase()} already exists`);
     } else {
       this.setState((state) => {
         return { contacts: [...state.contacts, one] };
@@ -50,11 +51,11 @@ export default class App extends Component {
     );
 
     return (
-      <div className="big">
-        <h1>Phonebook</h1>
+      <div className="app-container">
+        <h1 className="app-title">Phonebook</h1>
         <ContactForm handleSubmit={this.handleSubmit} />
-        <h2>Contacts</h2>
-        <p>Find contacts by name</p>
+        <h2 className="contacts-title">Contacts</h2>
+        <p className="filter-text">Find contacts by name</p>
         <Filter handleFilter={this.handleFilter} />
         <ContactList filtered={filtered} handleDelete={this.handleDelete} />
       </div>

@@ -1,29 +1,32 @@
-import { Component } from "react";
+import React, { Component } from "react";
+import "./ContactForm.css"; // Подключаем файл со стилями
 
 export default class ContactForm extends Component {
   state = {
     name: "",
     number: "",
   };
-  handleCgange = (event, name) => {
-    this.setState((state) => {
-      return { [name]: event.target.value };
-    });
+
+  handleChange = (event, name) => {
+    this.setState({ [name]: event.target.value });
   };
 
-  handleSub = (event) => {
+  handleSubmit = (event) => {
     const { handleSubmit } = this.props;
     event.preventDefault();
     handleSubmit(this.state);
+    this.setState({ name: "", number: "" }); // Сбрасываем значения полей после отправки формы
   };
+
   render() {
     return (
-      <form onSubmit={this.handleSub}>
+      <form className="contact-form" onSubmit={this.handleSubmit}>
         <ul>
           <li>
-            <p>Name</p>
+            <p className="label">Name</p>
             <input
-              onChange={() => this.handleCgange(event, "name")}
+              className="input"
+              onChange={(event) => this.handleChange(event, "name")}
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -32,9 +35,10 @@ export default class ContactForm extends Component {
             />
           </li>
           <li>
-            <p>Number</p>
+            <p className="label">Number</p>
             <input
-              onChange={() => this.handleCgange(event, "number")}
+              className="input"
+              onChange={(event) => this.handleChange(event, "number")}
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -43,7 +47,6 @@ export default class ContactForm extends Component {
             />
           </li>
           <li>
-            {" "}
             <button className="add">Add contact</button>
           </li>
         </ul>
